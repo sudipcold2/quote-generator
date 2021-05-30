@@ -2,7 +2,8 @@
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
-const twitterBtn = document.getElementById('twitter');
+//const twitterBtn = document.getElementById('twitter');
+const nativeShareBtn = document.getElementById('native-share');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
 
@@ -69,6 +70,23 @@ function tweetQuote(){
     window.open(twitterUrl, '_blank');
 }
 
+const shareData = {
+    text: `${quoteText.textContent} - ${authorText.textContent}`
+}
+async function nativeShare() {
+    if (navigator.canShare){
+        try {
+            await navigator.share(shareData)
+            console.log('shared');
+        } catch(err) {
+            console.log('failed to share');
+        }
+    }else{
+        console.log('System doesn\'t support web share');
+    }
+}
+
 //EventListeners
 newQuoteBtn.addEventListener('click', newQuote);
-twitterBtn.addEventListener('click', tweetQuote);
+//twitterBtn.addEventListener('click', tweetQuote);
+nativeShareBtn.addEventListener('click', nativeShare);
