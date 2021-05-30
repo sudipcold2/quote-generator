@@ -70,10 +70,11 @@ function tweetQuote(){
     window.open(twitterUrl, '_blank');
 }
 
-const shareData = {
-    text: `${quoteText.textContent} - ${authorText.textContent}`
-}
 async function nativeShare() {
+    const shareData = {
+        text: `${quoteText.textContent} - ${authorText.textContent}`
+    }
+    
     if (navigator.canShare){
         try {
             await navigator.share(shareData)
